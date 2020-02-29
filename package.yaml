@@ -32,6 +32,8 @@ dependencies:
 
 library:
   source-dirs: src
+  dependencies:
+    - random
 
 executables:
   haskell-craft-exe:
@@ -49,6 +51,7 @@ executables:
     - aeson
     - JuicyPixels
     - GLFW-b
+    - random
 
 tests:
   haskell-craft-test:
