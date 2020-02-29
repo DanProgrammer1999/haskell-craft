@@ -48,5 +48,16 @@
     <orderEntry type="library" name="GLFW-b-1.4.8.1" level="project" />
     <orderEntry type="library" name="bindings-GLFW-3.1.2.2" level="project" />
     <orderEntry type="library" name="bindings-DSL-1.0.23" level="project" />
+    <orderEntry type="library" name="lambdacube-compiler-0.5.0.1" level="project" />
+    <orderEntry type="library" name="directory-1.2.2.0" level="project" />
+    <orderEntry type="library" name="exceptions-0.8.3" level="project" />
+    <orderEntry type="library" name="filepath-1.4.0.0" level="project" />
+    <orderEntry type="library" name="megaparsec-4.4.0" level="project" />
+    <orderEntry type="library" name="pretty-show-1.6.13" level="project" />
+    <orderEntry type="library" name="wl-pprint-1.2" level="project" />
+    <orderEntry type="library" name="stm-2.4.4.1" level="project" />
+    <orderEntry type="library" name="transformers-compat-0.4.0.4" level="project" />
+    <orderEntry type="library" name="haskell-lexer-1.0.1" level="project" />
+    <orderEntry type="library" name="random-1.1" level="project" />
   </component>
 </module>
