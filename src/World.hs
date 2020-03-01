@@ -10,7 +10,10 @@ data World = World
       playerPosition :: AbsolutePosition
     }
 
-data Biome = Flat | Plains
+data Biome 
+  = Flat 
+  | Plains 
+  deriving (Eq, Show)
 
 data Chunk = Chunk
     {
@@ -23,12 +26,14 @@ data BlockType
   = Grass
   | Stone
   | Bedrock
+  deriving (Show, Eq)
 
 data Block = Block
     {
       position  :: RelativePosition, -- ^ x, y, and z coordinates of the block relative to the chunk
-      blockType :: Block             -- ^ Type of the block
+      blockType :: BlockType         -- ^ Type of the block
     }
+    deriving (Show)
 
 type ChunkIndex       = (Integer, Integer)
 type RelativePosition = (Int8, Int16, Int8)

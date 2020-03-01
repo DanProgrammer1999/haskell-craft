@@ -2,6 +2,9 @@
   <dictionary name="danieldv99">
     <words>
       <w>biome</w>
+      <w>lerp</w>
+      <w>perlin</w>
+      <w>scurve</w>
     </words>
   </dictionary>
 </component>
