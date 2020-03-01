@@ -1,19 +1,19 @@
 module Constants where
 
-maxYLevel :: Int
+maxYLevel :: Integer
 maxYLevel = 255
 
-maxGenerationYLevel :: Int
+maxGenerationYLevel :: Integer
 maxGenerationYLevel = 120
 
-seaLevel :: Int
+seaLevel :: Integer
 seaLevel = 62
 
 blockSize :: Double
 blockSize = 10 -- TODO put real size
 
-chunkLoadDistance :: Int
+chunkLoadDistance :: Integer
 chunkLoadDistance = 10
 
-chunkSize :: Int
+chunkSize :: Integer
 chunkSize = 16
