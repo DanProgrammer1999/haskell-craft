@@ -1,4 +1,4 @@
--- Based on https://github.com/colinhect/hsnoise Colin Hill, Copyright (c) 2011 
+-- Based on https://github.com/colinhect/hsnoise Colin Hill, Copyright (c) 2011
 
 -- | Implementation of Perlin noise.
 --
@@ -22,7 +22,7 @@ module NoiseGen.Perlin (
 import NoiseGen.Noise
 
 -- | A Perlin noise function.
-data Perlin = Perlin 
+data Perlin = Perlin
   {
     seed        :: Seed,
     octaves     :: Int,
@@ -33,13 +33,13 @@ data Perlin = Perlin
 -- | Produce a value of Perlin noise at the given point
 noiseValue :: Perlin -> Point -> Double
 noiseValue perlinNoise point = clamp noise (-1) 1
-  where 
+  where
     noise = perlinNoiseValue perlinNoise (octaves perlinNoise) 1 1 point
 
     perlinNoiseValue _ 0 _ _ _ = 0
-    perlinNoiseValue perlinNoise oct freq amp p = 
+    perlinNoiseValue perlinNoise oct freq amp p =
       noise + perlinNoiseValue perlinNoise oct' freq' amp' point
-      where 
+      where
         -- Octave count
         oct'   = oct - 1
         freq'  = freq * 2

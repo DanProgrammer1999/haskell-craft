@@ -13,7 +13,7 @@ randomChunkPoint g = ((randX, randY, randZ), finalG)
     (randZ, finalG) = randomR (0, fromIntegral chunkSize) g''
 
 generateChunk :: Biome -> g -> [Block]
-generateChunk Flat _ = getFlatBedrock ++ terrain
+generateChunk Flat _ = flatBedrock ++ terrain
   where
     terrain = 
       zipWith3
@@ -21,8 +21,8 @@ generateChunk Flat _ = getFlatBedrock ++ terrain
         [0 .. (fromIntegral chunkSize - 1)]
         [0, 1]
         [0 .. (fromIntegral chunkSize - 1)]
-generateChunk Plains g = _
+generateChunk Plains g = flatBedrock
 
-getFlatBedrock :: [Block]
-getFlatBedrock =
+flatBedrock :: [Block]
+flatBedrock =
   zipWith (\x z -> Block (x, 0, z) Bedrock) [0 .. (fromIntegral chunkSize - 1)] [0 .. (fromIntegral chunkSize - 1)]

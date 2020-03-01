@@ -2,6 +2,7 @@ module Main where
 
 import Generation
 import World
+import NoiseGen.Noise
 import System.Random
 
 main :: IO ()
@@ -12,5 +13,5 @@ main = do
   
   putStrLn ("Random point: " ++ (show blockPosition))
   
-  let absPosition = toAbsolutePosition chunk blockPositi
+  let absPosition = toAbsolutePosition chunk blockPosition
   putStrLn ("Absolute position: " ++ show absPosition)

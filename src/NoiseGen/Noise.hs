@@ -1,20 +1,20 @@
--- Based on https://github.com/colinhect/hsnoise Colin Hill, Copyright (c) 2011 
+-- Based on https://github.com/colinhect/hsnoise Colin Hill, Copyright (c) 2011
 --
 -- Loosely based on implementation of libnoise by Jason Bevins Copyright (C) 2003, 2004
 -- http://libnoise.sourceforge.net
-
 -- | Contains 'Noise' class as well as a general coherent noise generating function which
 -- the specific noise implementations are based on.
-module NoiseGen.Noise (
-    Point,
-    Seed,
-    pmap,
-    clamp,
+module NoiseGen.Noise
+  ( 
+    Point, 
+    Seed, 
+    pmap, 
+    clamp, 
     coherentNoise
-) where
+  ) where
 
-import Data.Bits
-import Data.Vector.Unboxed (Vector, fromList, (!))
+import           Data.Bits
+import           Data.Vector.Unboxed (Vector, fromList, (!))
 
 -- | A point in 3-space.
 type Point = (Double, Double, Double)
@@ -33,45 +33,38 @@ clamp v m m' = max m (min m' v)
 -- | Returns a coherent noise value between -1 and 1 given a seed and a point in 3-space.
 coherentNoise :: Seed -> Point -> Double
 coherentNoise seed (x, y, z) = clamp noise (-1) 1
-  where 
-    p  @ [x0, y0, z0] = map floor [x, y, x]
-    p1 @ [x1, y1, z1] = map (+ 1) [x0, y0, z0] 
-    
-    sx    = scurve (x - fromIntegral x0)
-    sy    = scurve (y - fromIntegral y0)
-    sz    = scurve (z - fromIntegral z0)
-    
+  where
+    p@[x0, y0, z0] = map floor [x, y, x]
+    p1@[x1, y1, z1] = map (+ 1) [x0, y0, z0]
+    sx = scurve (x - fromIntegral x0)
+    sy = scurve (y - fromIntegral y0)
+    sz = scurve (z - fromIntegral z0)
     getNoise = gradientNoise seed x y z
-    
-    n0    = getNoise x0 y0 z0
-    n1    = getNoise x1 y0 z0
-    n2    = getNoise x0 y1 z0
-    n3    = getNoise x1 y1 z0
-    n4    = getNoise x0 y0 z1
-    n5    = getNoise x1 y0 z1
-    n6    = getNoise x0 y1 z1
-    n7    = getNoise x1 y1 z1
-    
-    ix0   = lerp sx n0 n1
-    ix1   = lerp sx n2 n3
-    ix2   = lerp sx n4 n5
-    ix3   = lerp sx n6 n7
-    iy0   = lerp sy ix0 ix1
-    iy1   = lerp sy ix2 ix3
+    n0 = getNoise x0 y0 z0
+    n1 = getNoise x1 y0 z0
+    n2 = getNoise x0 y1 z0
+    n3 = getNoise x1 y1 z0
+    n4 = getNoise x0 y0 z1
+    n5 = getNoise x1 y0 z1
+    n6 = getNoise x0 y1 z1
+    n7 = getNoise x1 y1 z1
+    ix0 = lerp sx n0 n1
+    ix1 = lerp sx n2 n3
+    ix2 = lerp sx n4 n5
+    ix3 = lerp sx n6 n7
+    iy0 = lerp sy ix0 ix1
+    iy1 = lerp sy ix2 ix3
     noise = lerp sz iy0 iy1
 
 -- | Returns a gradient noise value given a seed, a point in 3-space, and a nearby integer
 -- point in 3-space.
 gradientNoise :: Seed -> Double -> Double -> Double -> Int -> Int -> Int -> Double
 gradientNoise seed fx fy fz ix iy iz = 2.12 * (gx * ox + gy * oy + gz * oz)
-    where (gx, gy, gz) = (vectorTable ! shiftL i 2,
-                          vectorTable ! (shiftL i 2 + 1),
-                          vectorTable ! (shiftL i 2 + 2))
-          (ox, oy, oz) = (fx - fromIntegral ix,
-                          fy - fromIntegral iy,
-                          fz - fromIntegral iz)
-          i            = (i' `xor` shiftR i' 8) .&. 0xff
-          i'           = (1619 * ix + 31337 * iy + 6971 * iz + 1013 * seed) .&. 0xffffffff
+  where
+    (gx, gy, gz) = (vectorTable ! shiftL i 2, vectorTable ! (shiftL i 2 + 1), vectorTable ! (shiftL i 2 + 2))
+    (ox, oy, oz) = (fx - fromIntegral ix, fy - fromIntegral iy, fz - fromIntegral iz)
+    i = (i' `xor` shiftR i' 8) .&. 0xff
+    i' = (1619 * ix + 31337 * iy + 6971 * iz + 1013 * seed) .&. 0xffffffff
 
 -- | Returns the linearly interpolated value between two values given a delta.
 lerp :: Double -> Double -> Double -> Double
@@ -80,9 +73,10 @@ lerp t a b = (1.0 - t) * a + t * b
 -- | Maps a value onto a quintic s-curve.
 scurve :: Double -> Double
 scurve a = (6.0 * a5) - (15.0 * a4) + (10.0 * a3)
-    where a3 = a * a * a
-          a4 = a3 * a
-          a5 = a4 * a
+  where
+    a3 = a * a * a
+    a4 = a3 * a
+    a5 = a4 * a
 
 -- | Table of random normalized vectors.
 vectorTable :: Vector Double
