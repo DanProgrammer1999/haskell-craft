@@ -4,6 +4,7 @@ import Generation
 import World
 import NoiseGen.Noise
 import System.Random
+import CodeWorld
 
 main :: IO ()
 main = do
@@ -15,3 +16,6 @@ main = do
   
   let absPosition = toAbsolutePosition chunk blockPosition
   putStrLn ("Absolute position: " ++ show absPosition)
+  
+  let chunk = generateChunk 10 Normal Plains
+  putStrLn (show chunk)
